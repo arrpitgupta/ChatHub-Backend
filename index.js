@@ -7,6 +7,7 @@ import cors from "cors";
 
 import authRoutes from "./routes/authRoutes.js";
 import Message from "./models/Message.js";
+import { log } from "console";
 
 
 dotenv.config();
@@ -30,6 +31,8 @@ io.on("connection", (socket) => {
   socket.on("sendMessage", async (msg) => {
     const newMsg = await Message.create(msg);
     io.emit("receiveMessage", newMsg);
+    console.log(newMsg);
+    
   });
 
   socket.on("disconnect", () => {
